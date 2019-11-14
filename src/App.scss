@@ -1,0 +1,26 @@
+.scroll-container {
+  height: 80%;
+  min-height: 400px;
+  max-height: 800px;
+  overflow: auto;
+  width: 500px;
+  margin: 30px auto;
+  border: 1px solid black;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      padding: 15px;
+      margin-top: -1px;
+      border: 1px solid black;
+      border-left: none;
+    }
+  }
+
+  .loading {
+    text-align: center;
+  }
+}
