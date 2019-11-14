@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import './App.scss';
+import "./App.scss";
 import request from "superagent";
 
 class App extends React.Component {
@@ -7,16 +7,18 @@ class App extends React.Component {
     super(props);
     this.state = {
       error: false,
-      hasMore: true,
       loadingState: false,
-      users: [],
+      users: []
     };
   }
 
   componentDidMount() {
     this.loadMoreItems();
     this.refs.iScroll.addEventListener("scroll", () => {
-      if (this.refs.iScroll.scrollTop + this.refs.iScroll.clientHeight >= this.refs.iScroll.scrollHeight) {
+      if (
+        this.refs.iScroll.scrollTop + this.refs.iScroll.clientHeight >=
+        this.refs.iScroll.scrollHeight
+      ) {
         this.loadMoreItems();
       }
     });
@@ -25,29 +27,25 @@ class App extends React.Component {
   loadMoreItems() {
     this.setState({ loadingState: true }, () => {
       request
-        .get('https://randomuser.me/api/?results=20')
-        .then((results) => {
+        .get("https://randomuser.me/api/?results=20")
+        .then(results => {
           const nextUsers = results.body.results.map(user => ({
             username: user.login.username,
-            name: user.name.first + ' ' + user.name.last,
+            name: user.name.first + " " + user.name.last,
             cell: user.cell
           }));
 
           this.setState({
-            hasMore: (this.state.users.length < 100),
             loadingState: false,
-            users: [
-              ...this.state.users,
-              ...nextUsers,
-            ],
+            users: [...this.state.users, ...nextUsers]
           });
         })
-        .catch((err) => {
+        .catch(err => {
           this.setState({
             error: err.message,
-            loadingState: false,
+            loadingState: false
           });
-        })
+        });
     });
   }
 
@@ -67,9 +65,12 @@ class App extends React.Component {
         </ul>
 
         <div className="loading">
-          {this.state.loadingState ? <p className="loading"> loading More Items..</p> : ""}
+          {this.state.loadingState ? (
+            <p className="loading"> loading More Items..</p>
+          ) : (
+            ""
+          )}
         </div>
-
       </div>
     );
   }
